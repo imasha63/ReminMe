@@ -1,7 +1,6 @@
 package com.example.tasktrackr
 
 import android.app.Dialog
-import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
@@ -17,7 +16,6 @@ import com.example.tasktrackr.utils.validateEditText
 import com.example.tasktrackr.viewmodels.TaskViewModel
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
-import androidx.lifecycle.MutableLiveData
 import com.example.tasktrackr.adapters.TaskRecyclerViewAdapter
 import com.example.tasktrackr.utils.clearEditText
 import com.example.tasktrackr.utils.longToastShow
@@ -46,25 +44,16 @@ class GameActivity : AppCompatActivity() {
         }
     }
 
-    private val loadingDialog : Dialog by lazy {
-        Dialog(this,R.style.DialogCustomTheme).apply {
-            setupDialog(R.layout.loading_layout)
-        }
-    }
+
 
     private val taskViewModel : TaskViewModel by lazy {
         ViewModelProvider(this)[TaskViewModel::class.java]
     }
 
-    private val taskRecyclerViewAdapter : TaskRecyclerViewAdapter by lazy {
-        TaskRecyclerViewAdapter()
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(gameBinding.root)
-
-        gameBinding.task.adapter = taskRecyclerViewAdapter
 
         //Add Task
         val addCloseImg = addTaskDialog.findViewById<ImageView>(R.id.closeIcon)
@@ -111,16 +100,16 @@ class GameActivity : AppCompatActivity() {
                 taskViewModel.insertTask(newTask).observe(this) {
                     when(it.status){
                         Status.LOADING -> {
-                            loadingDialog.show()
+
                         }
                         Status.SUCCESS -> {
-                            loadingDialog.dismiss()
+
                             if (it.data?.toInt() != -1) {
                                 longToastShow("Task Added Successfully")
                             }
                         }
                         Status.ERROR -> {
-                            loadingDialog.dismiss()
+
                             it.message?.let { it1 -> longToastShow(it1) }
                         }
                     }
@@ -153,43 +142,90 @@ class GameActivity : AppCompatActivity() {
         })
 
         val updateBtn = updateTaskDialog.findViewById<Button>(R.id.updateBtn)
-        updateBtn.setOnClickListener {
-            if (validateEditText(addETTitle, addETTitleL)
-                && validateEditText(addETDesc, addETDescL)
-            ) {
 
-                updateTaskDialog.dismiss()
-                val newTask = Task(
-                    UUID.randomUUID().toString(),
-                    addETTitle.text.toString().trim(),
-                    addETDesc.text.toString().trim(),
-                    Date()
-                )
+        //end of the update
+
+        val taskRecyclerViewAdapter = TaskRecyclerViewAdapter{ type ,position, task ->
+            if (type == "delete") {
+                taskViewModel.deleteTask(task).observe(this) {
+                    when (it.status) {
+                        Status.LOADING -> {
+
+                        }
+
+                        Status.SUCCESS -> {
+
+                            if (it.data?.toInt() != -1) {
+                                longToastShow("Task Deleted Successfully")
+                            }
+                        }
+
+                        Status.ERROR -> {
+
+                            it.message?.let { it1 -> longToastShow(it1) }
+                        }
+                    }
+                }
+            }else if (type == "update"){
+                updateETTitle.setText(task.title)
+                updateETDesc.setText(task.description)
+                updateBtn.setOnClickListener {
+                    if (validateEditText(updateETTitle, updateETTitleL)
+                        && validateEditText(updateETDesc, updateETDescL)
+                    ) {
+                        val updateTask = Task(
+                            task.id,
+                            updateETTitle.text.toString().trim(),
+                            updateETDesc.text.toString().trim(),
+                            Date()
+                        )
+                        updateTaskDialog.dismiss()
+                        taskViewModel.updateTask(updateTask).observe(this) {
+                            when (it.status) {
+                                Status.LOADING -> {
+
+                                }
+
+                                Status.SUCCESS -> {
+
+                                    if (it.data?.toInt() != -1) {
+                                        longToastShow("Task Updated Successfully")
+                                    }
+                                }
+
+                                Status.ERROR -> {
+
+                                    it.message?.let { it1 -> longToastShow(it1) }
+                                }
+                            }
+                        }
+                    }
+                }
+                updateTaskDialog.show()
             }
         }
-
-        callGetTaskList()
-        loadingDialog.show()
+        gameBinding.task.adapter = taskRecyclerViewAdapter
+        callGetTaskList(taskRecyclerViewAdapter)
     }
 
-    private fun callGetTaskList(){
+    private fun callGetTaskList(taskRecyclerViewAdapter:TaskRecyclerViewAdapter){
         CoroutineScope(Dispatchers.Main).launch {
             taskViewModel.getTaskList().collect {
                 when (it.status) {
                     Status.LOADING -> {
-                        loadingDialog.show()
+
                     }
 
                     Status.SUCCESS -> {
                         it.data?.collect { taskList ->
-                            loadingDialog.dismiss()
+
                             taskRecyclerViewAdapter.addAllTask(taskList)
                         }
 
                     }
 
                     Status.ERROR -> {
-                        loadingDialog.dismiss()
+
                         it.message?.let { it1 -> longToastShow(it1) }
                     }
                 }

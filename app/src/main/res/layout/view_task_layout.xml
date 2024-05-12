@@ -7,7 +7,7 @@
     android:layout_marginHorizontal="8dp"
     android:layout_marginVertical="4dp"
     android:foreground="?android:attr/selectableItemBackground"
-    app:cardBackgroundColor="@color/white"
+    app:cardBackgroundColor="@color/backcolor"
     app:cardElevation="10dp">
 
     <RelativeLayout
@@ -66,14 +66,14 @@
                 android:layout_height="35dp"
                 android:id="@+id/editIcon"
                 android:layout_marginVertical="4dp"
-                android:src="@drawable/editicon"/>
+                android:src="@drawable/baseline_edit_24"/>
 
             <ImageView
                 android:layout_width="35dp"
                 android:layout_height="35dp"
                 android:id="@+id/deleteIcon"
                 android:layout_marginVertical="4dp"
-                android:src="@drawable/deleteicon"/>
+                android:src="@drawable/baseline_delete_24" />
 
 
         </LinearLayout>

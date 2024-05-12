@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/backColor"
+    android:background="@drawable/backgoundpic"
+    android:maxWidth="200dp"
     tools:context=".GameActivity">
 
     <LinearLayout
@@ -13,17 +14,43 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
+
         <TextView
             android:id="@+id/title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
+            android:layout_marginBottom="15dp"
+            android:layout_marginStart="10dp"
             android:gravity="center"
             android:text="@string/welcome"
             android:textSize="24sp"
             android:textStyle="bold"
             app:layout_anchor="@+id/linearLayout"
-            app:layout_anchorGravity="top|center"/>
+            app:layout_anchorGravity="top|center" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/addSearch"
+            style="Widget.App.SearchInputLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/search"
+            android:textColorHint="@color/black"
+            android:layout_marginHorizontal="10dp"
+
+            app:errorEnabled="false"
+            app:hintEnabled="false">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edTkTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="text"
+
+                android:background="@drawable/purple_border"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+
 
 
         <androidx.recyclerview.widget.RecyclerView
