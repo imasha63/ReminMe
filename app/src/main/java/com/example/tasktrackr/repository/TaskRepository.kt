@@ -9,10 +9,22 @@ import com.example.tasktrackr.utils.Resource.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.flow.flow
+
 
 class TaskRepository(application: Application) {
 
     private val taskDao = TaskDatabase.getInstance(application).taskDao
+
+    fun getTaskList() = flow{
+        emit(Loading())
+        try {
+            val result = taskDao.getTaskList()
+            emit(Success(result))
+        }catch (e:Exception){
+            emit(Error(e.message.toString()))
+        }
+    }
 
     fun insertTask(task: Task) = MutableLiveData<Resource<Long>>().apply {
         postValue(Loading())

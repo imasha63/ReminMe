@@ -18,8 +18,12 @@ import com.example.tasktrackr.viewmodels.TaskViewModel
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 import androidx.lifecycle.MutableLiveData
+import com.example.tasktrackr.adapters.TaskRecyclerViewAdapter
 import com.example.tasktrackr.utils.clearEditText
 import com.example.tasktrackr.utils.longToastShow
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import java.util.Date
 import java.util.UUID
 
@@ -52,9 +56,15 @@ class GameActivity : AppCompatActivity() {
         ViewModelProvider(this)[TaskViewModel::class.java]
     }
 
+    private val taskRecyclerViewAdapter : TaskRecyclerViewAdapter by lazy {
+        TaskRecyclerViewAdapter()
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(gameBinding.root)
+
+        gameBinding.task.adapter = taskRecyclerViewAdapter
 
         //Add Task
         val addCloseImg = addTaskDialog.findViewById<ImageView>(R.id.closeIcon)
@@ -155,10 +165,35 @@ class GameActivity : AppCompatActivity() {
                     addETDesc.text.toString().trim(),
                     Date()
                 )
-
             }
         }
 
+        callGetTaskList()
+        loadingDialog.show()
     }
 
+    private fun callGetTaskList(){
+        CoroutineScope(Dispatchers.Main).launch {
+            taskViewModel.getTaskList().collect {
+                when (it.status) {
+                    Status.LOADING -> {
+                        loadingDialog.show()
+                    }
+
+                    Status.SUCCESS -> {
+                        it.data?.collect { taskList ->
+                            loadingDialog.dismiss()
+                            taskRecyclerViewAdapter.addAllTask(taskList)
+                        }
+
+                    }
+
+                    Status.ERROR -> {
+                        loadingDialog.dismiss()
+                        it.message?.let { it1 -> longToastShow(it1) }
+                    }
+                }
+            }
+        }
+    }
 }
