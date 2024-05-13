@@ -64,7 +64,7 @@
                     android:id="@+id/edTkTitle"
                     android:layout_width="match_parent"
                     android:layout_height="?actionBarSize"
-                    android:background="@color/editColor"
+                    android:background="@color/backColor"
                     android:inputType="text" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -79,7 +79,7 @@
                     android:id="@+id/edTkDes"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@color/editColor"
+                    android:background="@color/backColor"
                     android:gravity="top|start"
                     android:inputType="textMultiLine"
                     android:lines="5"

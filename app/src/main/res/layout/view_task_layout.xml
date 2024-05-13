@@ -1,19 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    style="@style/CardViewStyle"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    style="@style/CardViewStyle"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_marginHorizontal="8dp"
     android:layout_marginVertical="4dp"
     android:foreground="?android:attr/selectableItemBackground"
-    app:cardBackgroundColor="@color/backcolor"
+    app:cardBackgroundColor="@color/backColor"
     app:cardElevation="10dp">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -29,25 +30,25 @@
                 android:text="@string/title"
                 android:textColor="@color/black"
                 android:textSize="20sp"
-                android:textStyle="bold"/>
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/descrTxt"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginVertical="4dp"
                 android:text="@string/dis"
                 android:textColor="@color/black"
-                android:layout_marginVertical="4dp"
                 android:textSize="18sp"
-                android:textStyle="bold"/>
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/dateTxt"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginVertical="4dp"
                 android:text="@string/date"
                 android:textColor="@color/black"
-                android:layout_marginVertical="4dp"
                 android:textSize="18sp" />
 
 
@@ -62,16 +63,16 @@
             android:orientation="vertical">
 
             <ImageView
+                android:id="@+id/editIcon"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
-                android:id="@+id/editIcon"
                 android:layout_marginVertical="4dp"
-                android:src="@drawable/baseline_edit_24"/>
+                android:src="@drawable/baseline_edit_24" />
 
             <ImageView
+                android:id="@+id/deleteIcon"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
-                android:id="@+id/deleteIcon"
                 android:layout_marginVertical="4dp"
                 android:src="@drawable/baseline_delete_24" />
 

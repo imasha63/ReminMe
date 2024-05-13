@@ -22,7 +22,7 @@ class TaskViewModel (application: Application) : AndroidViewModel(application){
         return taskRepository.deleteTask(task)
     }
 
-    // second way
+    // second wayt
     fun deleteTaskUsingId(taskId: String){
         taskRepository.deleteTaskUsingId(taskId)
     }
