@@ -76,7 +76,7 @@
         android:backgroundTint="@color/black"
         android:id="@+id/addTaskFABtn"
         android:text="@string/add"
-        android:textColor="@color/red"
+        android:textColor="@color/white"
         android:textSize="18sp"
         app:icon="@drawable/baseline_add_24"
         app:iconSize="23dp"
