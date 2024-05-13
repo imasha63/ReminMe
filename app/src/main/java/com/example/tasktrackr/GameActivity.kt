@@ -44,8 +44,6 @@ class GameActivity : AppCompatActivity() {
         }
     }
 
-
-
     private val taskViewModel : TaskViewModel by lazy {
         ViewModelProvider(this)[TaskViewModel::class.java]
     }

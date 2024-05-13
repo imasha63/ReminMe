@@ -19,11 +19,12 @@
             android:id="@+id/title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="140dp"
             android:layout_marginTop="16dp"
             android:layout_marginBottom="15dp"
-            android:layout_marginStart="10dp"
             android:gravity="center"
             android:text="@string/welcome"
+            android:textColor="@color/black"
             android:textSize="24sp"
             android:textStyle="bold"
             app:layout_anchor="@+id/linearLayout"
@@ -34,20 +35,21 @@
             style="Widget.App.SearchInputLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/search"
             android:textColorHint="@color/black"
             android:layout_marginHorizontal="10dp"
-
+            app:startIconDrawable="@drawable/ic_search"
             app:errorEnabled="false"
             app:hintEnabled="false">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/edTkTitle"
+                android:id="@+id/adSearch"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@drawable/purple_border"
+                android:hint="@string/search"
+                android:imeOptions="actionSearch"
                 android:inputType="text"
-
-                android:background="@drawable/purple_border"/>
+                android:paddingStart="50dp"/>
         </com.google.android.material.textfield.TextInputLayout>
 
 

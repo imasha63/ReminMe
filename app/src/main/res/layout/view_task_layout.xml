@@ -62,15 +62,15 @@
             android:orientation="vertical">
 
             <ImageView
-                android:layout_width="35dp"
-                android:layout_height="35dp"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
                 android:id="@+id/editIcon"
                 android:layout_marginVertical="4dp"
                 android:src="@drawable/baseline_edit_24"/>
 
             <ImageView
-                android:layout_width="35dp"
-                android:layout_height="35dp"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
                 android:id="@+id/deleteIcon"
                 android:layout_marginVertical="4dp"
                 android:src="@drawable/baseline_delete_24" />
