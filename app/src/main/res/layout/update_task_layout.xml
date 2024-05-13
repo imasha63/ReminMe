@@ -16,10 +16,14 @@
             android:id="@+id/titleNew"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"
             android:text="@string/updateT"
-            android:textStyle="bold"
-            android:textSize="24sp"/>
+            android:textColor="@color/black"
+            android:textSize="24sp"
+            android:textStyle="bold" />
 
         <ImageView
             android:id="@+id/closeIcon"
@@ -34,7 +38,7 @@
             android:layout_width="match_parent"
             android:layout_height="3dp"
             android:layout_below="@+id/titleNew"
-            android:background="@color/black"/>
+            android:background="@color/black" />
 
         <LinearLayout
             android:layout_width="match_parent"

@@ -52,7 +52,7 @@
         android:layout_width="146dp"
         android:layout_height="60dp"
         android:layout_marginBottom="88dp"
-        android:backgroundTint="@color/backColor"
+        android:backgroundTint="@color/backcolor"
         android:text="@string/sBtn"
         android:textColorLink="@color/backColor"
 
